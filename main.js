@@ -6,23 +6,21 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const ctx = canvas.getContext("2d");
+const snake = new Snake();
+const mouse = new Point();
 
-const p1 = new Point()
-const p2 = new Point()
+console.log(snake.head);
 
-const seg = new Segment(p1, p2);
+window.addEventListener("mousemove", (e) => {
+    mouse.setPos(e.x, e.y);
+});
 
-p1.setPos(100, 200);
-p1.setRad(10);
 
-p2.setPos(200, 200)
-p2.setRad(10)
-animate()
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    p1.draw(ctx);
-    p2.draw(ctx);
-    seg.draw(ctx);
-    requestAnimationFrame(animate)
-}
+    snake.draw(ctx);
+    snake.update(mouse);
+    requestAnimationFrame(animate);
+};
+animate();

@@ -15,8 +15,11 @@ class Point {
         return this;
     }
 
-    update() {
-
+    update(mouse) {
+        if (!mouse) return;
+        const diff = this.pos.sub(mouse.pos);
+        const direction = diff.normalize().scale(diff.mag() * 0.1);
+        this.pos = this.pos.sub(direction);
     }
 
     draw(ctx) {
