@@ -4,6 +4,9 @@ class Body {
     constructor(points = [], segments = []) {
         this.points = points;
         this.segments = segments;
+
+        this.skin = null;
+
     }
 
     init(radiuses = [5, 7, 6, 7, 8, 8, 8, 9, 9, 9, 9, 9, 8, 7, 7, 6, 6, 5, 4, 3]) {
@@ -20,6 +23,7 @@ class Body {
             const seg = new Segment(p1, p2);
             this.segments.push(seg);
         }
+        this.skin = new Skin(this.points, this.segments);
     }
 
     get head() {
@@ -32,10 +36,14 @@ class Body {
         this.points.forEach(p => p.update());
 
         this.segments.forEach(s => s.update());
+        this.skin.update();
     }
 
     draw(ctx) {
-        this.points.forEach(p => p.draw(ctx));
+        // this.points.forEach(p => p.draw(ctx));
+        this.head.draw(ctx);
+        this.tail.draw(ctx);
         this.segments.forEach(s => s.draw(ctx));
+        this.skin.draw(ctx);
     }
 }

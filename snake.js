@@ -6,6 +6,7 @@ class Snake {
         this.body.init();
         this.head = this.body.head;
         this.tail = this.body.tail;
+
     }
 
     update(mouse) {
