@@ -9,6 +9,10 @@ const ctx = canvas.getContext("2d");
 const snake = new Snake();
 const mouse = new Point();
 
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+})
 
 window.addEventListener("mousemove", (e) => {
     mouse.setPos(e.x, e.y);
