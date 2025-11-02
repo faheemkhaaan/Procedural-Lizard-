@@ -6,11 +6,13 @@ class Snake {
         this.body.init();
         this.head = this.body.head;
         this.tail = this.body.tail;
+        this.controls = new Control();
+
 
     }
 
     update(mouse) {
-        this.head.update(mouse);
+        this.head.update(this.controls);
         this.body.update(mouse);
     }
 

@@ -9,6 +9,10 @@ class Point {
     constructor(pos = new Vector(100, 100), rad = 5, color = "black") {
         this.pos = pos;
         this.rad = rad;
+        this.speed = new Vector(0, 0);
+        this.acceleration = 5;
+        this.maxSpeed = 6;
+        this.friction = 0.95
         this.color = color;
     }
 
@@ -23,11 +27,43 @@ class Point {
         return this;
     }
 
-    update(mouse) {
-        if (!mouse) return;
-        const diff = this.pos.sub(mouse.pos);
-        const direction = diff.normalize().scale(diff.mag() * 0.05);
-        this.pos = this.pos.sub(direction);
+    /**
+     * 
+     * @param {Control} controls 
+     */
+    update(controls = null) {
+        if (!controls) return;
+        const keys = controls.keys;
+
+        if (keys.ArrowRight) {
+            this.speed.x += this.acceleration;
+        }
+        if (keys.ArrowLeft) {
+            this.speed.x -= this.acceleration;
+        }
+        if (keys.ArrowUp) {
+            this.speed.y -= this.acceleration;
+        }
+        if (keys.ArrowDown) {
+            this.speed.y += this.acceleration;
+        }
+
+        if (this.speed.mag() > this.maxSpeed) {
+            this.speed = this.speed.normalize().scale(this.maxSpeed);
+        }
+
+
+        this.pos = this.pos.add(this.speed);
+
+        this.speed = this.speed.scale(this.friction)
+
+        // if (!mouse) return;
+        // const diff = this.pos.sub(mouse.pos);
+        // const direction = diff.normalize().scale(diff.mag() * 0.05);
+        // this.pos = this.pos.sub(direction);
+
+
+
     }
 
     drawEyes() {

@@ -45,6 +45,7 @@ class Body {
     update() {
         this.points.forEach(p => p.update());
 
+
         this.segments.forEach(s => s.update());
         for (let i = 1; i < this.segments.length; i++) {
             const prev = this.segments[i - 1];
