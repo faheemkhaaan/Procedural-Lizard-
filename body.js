@@ -1,6 +1,11 @@
 
 
 class Body {
+    /**
+     * 
+     * @param {Points[]} points 
+     * @param {Segment[]} segments 
+     */
     constructor(points = [], segments = []) {
         this.points = points;
         this.segments = segments;
@@ -9,7 +14,7 @@ class Body {
 
     }
 
-    init(radiuses = [5, 7, 6, 7, 8, 8, 8, 9, 9, 9, 9, 9, 8, 7, 7, 6, 6, 5, 4, 3]) {
+    init(radiuses = [5, 7, 6, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 9, 9, 8, 7, 7, 6, 6, 5, 4, 3]) {
         let x = 100, y = 100, spacing = 0;
         for (const rad of radiuses) {
             const p = new Point();
@@ -36,6 +41,12 @@ class Body {
         this.points.forEach(p => p.update());
 
         this.segments.forEach(s => s.update());
+        for (let i = 1; i < this.segments.length; i++) {
+            const prev = this.segments[i - 1];
+            const curr = this.segments[i];
+
+            curr.applyAngleConstraint(prev);
+        }
         this.skin.update();
     }
 

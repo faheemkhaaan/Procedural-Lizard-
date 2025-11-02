@@ -1,5 +1,11 @@
 
 class Point {
+    /**
+     * 
+     * @param {Vector} pos 
+     * @param {number} rad 
+     * @param {string} color 
+     */
     constructor(pos = new Vector(100, 100), rad = 5, color = "black") {
         this.pos = pos;
         this.rad = rad;

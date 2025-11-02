@@ -7,7 +7,6 @@ class Skin {
         this.skinPoints = []
         this.init()
     }
-
     init() {
         const rightPoints = [];
         const leftPoints = [];
@@ -15,7 +14,6 @@ class Skin {
             const seg = this.segments[i];
             const leftP = seg.leftPoints();
             const rightP = seg.rightPoints();
-
             rightPoints.unshift(...rightP);
             leftPoints.push(...leftP);
         }
@@ -28,17 +26,14 @@ class Skin {
         this.skinPoints.forEach(p => p.update());
     }
     draw(ctx) {
-        // this.skinPoints.forEach(p => p.draw(ctx));
         ctx.beginPath();
         ctx.moveTo(this.skinPoints[0].pos.x, this.skinPoints[0].pos.y);
         for (let i = 1; i < this.skinPoints.length; i++) {
             const point = this.skinPoints[i];
-
             ctx.lineTo(point.pos.x, point.pos.y);
         }
         ctx.fill()
         ctx.stroke()
-        // ctx.closePath()
     }
 }
 

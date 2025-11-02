@@ -23,8 +23,22 @@ class Vector {
         return this.x * other.x + this.y * other.y;
     }
 
+    cross(other) {
+        return this.x * other.y - this.y * other.x;
+    }
+
     mag() {
         return Math.hypot(this.x, this.y);
+    }
+
+
+    rotate(angle) {
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        return new Vector(
+            this.x * cos - this.y * sin,
+            this.x * sin + this.y * cos
+        )
     }
     normalize() {
         const mag = this.mag();
@@ -34,7 +48,7 @@ class Vector {
         return new Vector(0, 0);
     }
     normal() {
-        return new Vector(this.y, -this.x);
+        return new Vector(-this.y, this.x);
     }
 
 }
