@@ -44,16 +44,12 @@ class Segment {
     applyAngleConstraint(prevSegment) {
         const prevSegmentVector = prevSegment.getVector();
         const currentVector = this.getVector();
-
         // cos0 = A.x * B.x + A.y * B.y / |A| * |B|
-
         const dotProduct = prevSegmentVector.dot(currentVector);
         const prevMag = prevSegmentVector.mag();
         const currentMag = currentVector.mag();
         if (prevMag === 0 || currentMag === 0) return;
-
         const cosAngle = dotProduct / (prevMag * currentMag);
-        console.log(cosAngle);
         const angle = Math.acos(Math.max(-1, Math.min(1, cosAngle)));
         const maxAngle = Math.PI / 7
         if (angle > maxAngle) {
@@ -65,11 +61,9 @@ class Segment {
             //x: this.x * cos - this.y * sin
             //y: this.x * sin + this.y * cos
             const targetDirection = prevDirection.rotate(maxAngle * sign)
-
             const targetVector = targetDirection.scale(currentMag);
-            const correction = targetVector.sub(currentVector).scale(0.2);
+            const correction = targetVector.sub(currentVector).scale(0.3);
             this.p2.pos = this.p2.pos.add(correction);
-
         }
     }
 
@@ -82,10 +76,12 @@ class Segment {
             this.p2.pos = this.p2.pos.add(direction.scale(exessiveLength));
         }
     }
-    draw(ctx) {
+    draw(ctx, { lineWidth = 2 } = {}) {
         ctx.beginPath();
+        ctx.lineWidth = lineWidth;
         ctx.moveTo(this.p1.pos.x, this.p1.pos.y);
         ctx.lineTo(this.p2.pos.x, this.p2.pos.y);
         ctx.stroke();
+        ctx.lineWidth = 1
     }
 }

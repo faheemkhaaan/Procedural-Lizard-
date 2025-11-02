@@ -32,6 +32,9 @@ class Vector {
     }
 
 
+    angle() {
+        return Math.atan2(this.y, this.x);
+    }
     rotate(angle) {
         const cos = Math.cos(angle);
         const sin = Math.sin(angle);
@@ -49,6 +52,9 @@ class Vector {
     }
     normal() {
         return new Vector(-this.y, this.x);
+    }
+    clone() {
+        return new Vector(this.x, this.y);
     }
 
 }

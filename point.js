@@ -30,10 +30,15 @@ class Point {
         this.pos = this.pos.sub(direction);
     }
 
-    draw(ctx) {
+    drawEyes() {
+
+    }
+    draw(ctx, { fill = false } = {}) {
         ctx.beginPath();
         ctx.arc(this.pos.x, this.pos.y, this.rad, 0, Math.PI * 2);
         ctx.stroke();
-        ctx.fill();
+        if (fill) {
+            ctx.fill();
+        }
     }
 }

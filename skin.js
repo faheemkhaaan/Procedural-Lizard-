@@ -27,13 +27,17 @@ class Skin {
     }
     draw(ctx) {
         ctx.beginPath();
+        ctx.fillStyle = "green";
+        ctx.strokeStyle = "white"
+        ctx.lineWidth = 3
         ctx.moveTo(this.skinPoints[0].pos.x, this.skinPoints[0].pos.y);
         for (let i = 1; i < this.skinPoints.length; i++) {
             const point = this.skinPoints[i];
             ctx.lineTo(point.pos.x, point.pos.y);
         }
-        ctx.fill()
+
         ctx.stroke()
+        ctx.fill()
     }
 }
 

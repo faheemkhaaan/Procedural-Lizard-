@@ -10,16 +10,18 @@ class Body {
         this.points = points;
         this.segments = segments;
 
+        this.frontLimbs = null;
+        this.backLimbs = null;
         this.skin = null;
 
     }
 
-    init(radiuses = [5, 7, 6, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 9, 9, 8, 7, 7, 6, 6, 5, 4, 3]) {
-        let x = 100, y = 100, spacing = 0;
+    init(radiuses = [5, 7, 6, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 9, 9, 8, 7, 7, 6, 6, 5, 4, 3, 2, 1]) {
+        let x = 100, y = 100, spacing = 0, scale = 1.4;
         for (const rad of radiuses) {
             const p = new Point();
-            p.setPos(x + spacing, y).setRad(rad);
-            spacing += 10;
+            p.setPos(x + spacing, y).setRad(rad * scale);
+            spacing += 10 * scale;
             this.points.push(p);
         }
         for (let i = 1; i < this.points.length; i++) {
@@ -29,6 +31,8 @@ class Body {
             this.segments.push(seg);
         }
         this.skin = new Skin(this.points, this.segments);
+        this.frontLimbs = new Limbs(this.segments[6]);
+        this.backLimbs = new Limbs(this.segments[16])
     }
 
     get head() {
@@ -37,6 +41,7 @@ class Body {
     get tail() {
         return this.points[this.points.length - 1];
     }
+
     update() {
         this.points.forEach(p => p.update());
 
@@ -48,13 +53,17 @@ class Body {
             curr.applyAngleConstraint(prev);
         }
         this.skin.update();
+        // this.frontLimbs.update()
+        // this.backLimbs.update()
     }
 
     draw(ctx) {
         // this.points.forEach(p => p.draw(ctx));
-        this.head.draw(ctx);
-        this.tail.draw(ctx);
+        this.head.draw(ctx, { fill: true });
+        this.tail.draw(ctx, { fill: true });
         this.segments.forEach(s => s.draw(ctx));
         this.skin.draw(ctx);
+        // this.frontLimbs.draw(ctx)
+        // this.backLimbs.draw(ctx);
     }
 }
